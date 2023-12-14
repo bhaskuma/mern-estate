@@ -7,7 +7,7 @@ export const test = (req, res) => {
 }
 
 export const updateUserinfo = async (req, res, next) => {
-    if (req.user.id != req.params.id) return next(errorHandle(401, 'you are only  update your own account'))
+    if (req.user.id !== req.params.id) return next(errorHandle(401, 'you are only update your own account'))
     try {
         if (req.body.password) {
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -19,14 +19,15 @@ export const updateUserinfo = async (req, res, next) => {
                 email: req.body.email,
                 password: req.body.password,
                 avatar: req.body.avatar
-            }
+            },
         }, { new: true })
-        const { password, ...rest } = updateUser._doc
 
+        // const { password, ...rest } = updateUser._doc
+        // console.log(rest)
         res.status(200).json({
             success: true,
             message: "user updated",
-            user: rest
+            user: updateUser
         })
     } catch (error) {
         next(error)
