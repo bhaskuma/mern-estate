@@ -22,12 +22,12 @@ export const updateUserinfo = async (req, res, next) => {
             },
         }, { new: true })
 
-        // const { password, ...rest } = updateUser._doc
+        const { password, ...rest } = updateUser._doc
         // console.log(rest)
         res.status(200).json({
             success: true,
             message: "user updated",
-            user: updateUser
+            user: rest
         })
     } catch (error) {
         next(error)
